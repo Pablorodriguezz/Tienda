@@ -11,9 +11,14 @@
 <body>
 
     <?php
+    session_start();
     require './bd.php';
-
-
+    if($_SESSION["rol"]!= 'admin'){
+        header('location: listado_productos.php');
+    }
+    
+    
+  
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Obtener los datos del formulario
@@ -21,7 +26,7 @@
         $precio = floatval($_POST['precio']);
         $descripcion = $_POST['descripcion'];
         $cantidad = $_POST['cantidad'];
-        $error;
+      
 
          if (strlen($nombre) > 40) {
              die("Error: El nombre del producto debe tener como máximo 40 caracteres.");
