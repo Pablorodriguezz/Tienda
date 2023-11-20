@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php require './bootsrap.php' ?>
-    <link rel="stylesheet" href="csslogin.css">
-
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width
+    initial-scale=1.0">
+    <link rel="stylesheet" href="../util/login.css">
+    
+    <title>Login</title>
 
 </head>
 
@@ -60,66 +60,70 @@
         if ($acceso_valido) {
             $_SESSION["usuario"] = $usuario;
             $usuario = $_SESSION["usuario"];
-            
+
             // Verificar si el usuario ya tiene una cesta
             $sql_check_cesta = "SELECT * FROM cestas WHERE usuario = '$usuario'";
             $result_check_cesta = $conexion->query($sql_check_cesta);
-      
+
             if ($result_check_cesta->num_rows == 0) {
-              // El usuario no tiene una cesta, por lo tanto, se crea una cesta vacía
-              $sql_crear_cesta = "INSERT INTO cestas (usuario) VALUES ('$usuario')";
-              if ($conexion->query($sql_crear_cesta) === TRUE) {
-                echo "Se ha adjuntado una cesta vacía al iniciar sesión.";
-              } else {
-                echo "Error al crear la cesta: " . $conexion->error;
-              }
+                // El usuario no tiene una cesta, por lo tanto, se crea una cesta vacía
+                $sql_crear_cesta = "INSERT INTO cestas (usuario) VALUES ('$usuario')";
+                if ($conexion->query($sql_crear_cesta) === TRUE) {
+                    echo "Se ha adjuntado una cesta vacía al iniciar sesión.";
+                } else {
+                    echo "Error al crear la cesta: " . $conexion->error;
+                }
             }
-            
-          } else {
+
+        } else {
             $error = "El usuario/contraseña son incorrectos";
-          }
-          
-
-
-        
-          
-
-
         }
-    
-    ?>
-    
-    <div class="intro">
-        <div style="padding-right: 3em;">
 
-            <img src="./img/amazom.jpg" alt="" width="400px">
-        </div>
+
+
+
+
+
+
+    }
+
+    ?>
+
+
+    <div class="wrapper">
         <form action="" method="post" style="border-left: 2px solid rgb(238, 237, 237); padding-left:3em">
-            <div class="caja">
-                <h3 class="h3_login">Ingrese su cuenta</h3>
-                <?php if (isset($error)) echo $error ?>
-                <div class="cajaInterna">
+            <h1>Login</h1>
+            <div class="input-box">
                 <label class="label_nombre">Usuario:</label>
                 <input class="form-control" type="text" name="usuario">
-                <?php if (isset($err_usuario)) echo $err_usuario ?>
-                <br><br>
-                <label class="label_nombre">Contraseña:</label>
-                <input class="form-control" type="password" name="contrasenia">
+                
+                <?php if (isset($err_usuario))
+                    echo $err_usuario ?>
+                    <br><br>
                 </div>
-            </div>
-            <div class="registro">
-                <p class="texto-registrar">Si no tienes cuenta registrate</p>
-                <a class="enlace_registrar" href="registro.php">  aquí</a>
-            </div>
-            <div class="enviar">
-            <?php if (isset($err_fecha)) echo $err_fecha ?>
-            <input class="btn btn-primary mb-3 boton" type="submit" value="Login">
-            
-            </div>
+                <div class="input-box">
+                    <label class="label_nombre">Contraseña:</label>
+                    <input class="form-control" type="password" name="contrasenia">
+                    
+                </div>
+                <div class="remember-forgot">
+                    <p>Si no tienes cuenta registrate <a href="registro.php">aquí</a></p>
+                    
+
+                </div>
+
+            <?php if (isset($err_fecha))
+                    echo $err_fecha ?>
+                <input class="btn btn-primary mb-3 boton" type="submit" value="Login">
+
+
+
+        </div>
+
         </form>
-    </div>
 
 
-</body>
 
-</html>
+    </body>
+
+    </html>

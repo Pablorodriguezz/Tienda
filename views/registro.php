@@ -44,12 +44,14 @@
         } {
 
             //introduce datos en la base de datos
-            $sql = "INSERT INTO usuarios (usuario, contrasena, fechaNacimiento)
-                VALUES ('$usuario', '$contrasenia', '$fechaNacimiento')";
+            $sql = "INSERT INTO usuarios (usuario, contrasena, fechaNacimiento) VALUES ('$usuario', '$contrasena', '$fechaNacimiento')";
+            $conn->query($cestaSql);
+            
+            
 
-            $conexion->query($sql);
-
-
+            // Inserción en la tabla 'cestas'
+            $cestaSql = "INSERT INTO cestas ( usuario, precioTotal) VALUES ( '$usuario', 0)";
+            $conn->query($cestaSql);
 
             
         }
@@ -59,16 +61,6 @@
   
     }
     ?>
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -89,17 +81,10 @@
             <?php if (isset($err_fecha)) echo $err_fecha ?>
             <input class="btn btn-primary mb-3" type="submit" value="Continuar">
         </form>
+                
     </div>
 
-    <button onclick="iniciarSesion()">¿Ya tienes cuenta? Iniciar sesión</button>
-
-    <script>
-        
-        function iniciarSesion() {
-            
-            window.location.href = 'login.php';
-        }
-    </script>
+    
 
 </body>
 
