@@ -1,4 +1,77 @@
-.listado-form{
-    display: flex!important;
-    background-color: black!important;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: black; /* Color de fondo del menú de navegación */
+    color: black; /* Color del texto del menú */
+}
+
+.navbar a {
+    color: black !important; /* Color del texto del enlace en el menú */
+}
+
+.container-fluid {
+    padding: 10px;
+}
+
+h3 {
+    color: #343a40; /* Color del encabezado principal */
+    margin-left: 2%;
+}
+
+.table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    border: 1px solid #dee2e6;
+    padding: 8px;
+    text-align: left;
+}
+
+.table th {
+    background-color: rgb(167, 53, 220); /* Color de fondo del encabezado de la tabla */
+    color: white;
+}
+
+.table tbody tr:hover {
+    background-color: #f8d7da; /* Color de fondo al pasar el ratón sobre una fila */
+}
+
+.form-control {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.b {
+    font-weight: bold;
+}
+
+img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+button {
+    background-color: #28a745; /* Color de fondo del botón "Subir producto" */
+    color: white;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+}
+.boton_cesta{
+    margin-left: 75%;
+    width: 100px;
+}
+.boton_producto{
+    margin-left: 2%;
 }

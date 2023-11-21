@@ -4,87 +4,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <?php require './bootsrap.php' ?>
-
+    <title>Register</title>
+    <link rel="stylesheet" href="../util/register.css">
 </head>
 
 <body>
 
     <?php
+    session_start();
+    require './bd.php';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        $_servidor = 'localhost';
-        $_usuario = 'root';
-        $_contrasena = 'medac';
-        $_base_de_datos = 'amazon';
-
-        $conexion = new Mysqli(
-            $_servidor,
-            $_usuario,
-            $_contrasena,
-            $_base_de_datos
-        )
-            or die("Error de conexión");
-
-        
         $usuario = $_POST["usuario"];
         $contrasenia = $_POST["contrasenia"];
         $contrasenia = password_hash($contrasenia, PASSWORD_DEFAULT);
         $fechaNacimiento = $_POST["nacimiento"];
 
-
         if (strlen($usuario) < 4 || strlen($usuario) > 12 || !preg_match('/^[a-zA-Z_]+$/', $usuario)) {
             die("Error: El nombre de usuario no es válido.");
         }
-        
+
         $edad = date_diff(date_create($fechaNacimiento), date_create('today'))->y;
         if ($edad < 12 || $edad > 120) {
             die("Error: Debes tener entre 12 y 120 años para registrarte.");
-        } {
-
-            //introduce datos en la base de datos
-            $sql = "INSERT INTO usuarios (usuario, contrasena, fechaNacimiento) VALUES ('$usuario', '$contrasena', '$fechaNacimiento')";
-            $conn->query($cestaSql);
-            
-            
-
-            // Inserción en la tabla 'cestas'
-            $cestaSql = "INSERT INTO cestas ( usuario, precioTotal) VALUES ( '$usuario', 0)";
-            $conn->query($cestaSql);
-
-            
         }
+
+        // Insert user data into the 'usuarios' table
+        $sql = "INSERT INTO usuarios (usuario, contrasena, fechaNacimiento) VALUES ('$usuario', '$contrasenia', '$fechaNacimiento')";
+        $conn->query($sql);
+
+        // Retrieve the automatically generated ID for the last inserted row
+        $idUsuario = $conn->insert_id;
+
+        // Insert a record into the 'cestas' table using the obtained $idUsuario
+        $sqlCesta = "INSERT INTO cestas (idCesta, usuario, precioTotal) VALUES ('$idUsuario', '$usuario', 0)";
+        $conn->query($sqlCesta);
+
         header('location: login.php');
-        session_start();
-        
-  
+
     }
     ?>
 
-
-
-
-
-    <div class="mb-3" style="margin: 100px 300px; border:5px solid black">
-        <h1 style="background-color: black; color:white;  text-align: center; padding:20px;">Formulario para crear un nuevo Usuario</h1>
+    <div class="wrapper">
         <form style="padding: 50px;" action="" method="post">
-            <label class="form-label">Usuario:</label>
-            <input class="form-control" type="text" name="usuario">
-            <?php if (isset($err_usuario)) echo $err_usuario ?>
-            <br><br>
-            <label class="form-label">Contraseña:</label>
-            <input class="form-control" type="password" name="contrasenia">
-            <br><br>
-            <label class="form-label">Fecha de nacimiento</label>
-            <input class="form-control" type="date" name="nacimiento"><br>
-            <?php if (isset($err_fecha)) echo $err_fecha ?>
-            <input class="btn btn-primary mb-3" type="submit" value="Continuar">
+            <h1>Registro</h1>
+            <div class="input-box">
+                <label class="label_nombre">Usuario:</label>
+                <input class="form-control" type="text" name="usuario">
+                <br><br>
+            </div>
+            <div class="input-box">
+                <label class="label_nombre">Contraseña:</label>
+                <input class="form-control" type="password" name="contrasenia">
+            </div>
+            <div class="input-box">
+                <label class="form-label">Fecha de nacimiento</label>
+                <input class="form-control" type="date" name="nacimiento">
+            </div>
+            <div class="remember-forgot">
+                <p>Si tienes cuenta inicia sesión <a href="login.php">aquí</a></p>
+            </div>
+            <br>
+            <input class="btn btn-primary mb-3 boton" type="submit" value="Registrarse">
         </form>
-                
     </div>
-
-    
 
 </body>
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width
     initial-scale=1.0">
     <link rel="stylesheet" href="../util/login.css">
-    
+
     <title>Login</title>
 
 </head>
@@ -96,7 +96,7 @@
             <div class="input-box">
                 <label class="label_nombre">Usuario:</label>
                 <input class="form-control" type="text" name="usuario">
-                
+
                 <?php if (isset($err_usuario))
                     echo $err_usuario ?>
                     <br><br>
@@ -104,12 +104,12 @@
                 <div class="input-box">
                     <label class="label_nombre">Contraseña:</label>
                     <input class="form-control" type="password" name="contrasenia">
-                    
+
                 </div>
                 <div class="remember-forgot">
                     <p>Si no tienes cuenta registrate <a href="registro.php">aquí</a></p>
-                    
 
+                    <br>
                 </div>
 
             <?php if (isset($err_fecha))
