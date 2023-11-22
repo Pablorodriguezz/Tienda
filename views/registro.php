@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="../util/register.css">
+    <?php require './bootsrap.php' ?>
 </head>
 
 <body>
@@ -21,27 +22,37 @@
         $fechaNacimiento = $_POST["nacimiento"];
 
         if (strlen($usuario) < 4 || strlen($usuario) > 12 || !preg_match('/^[a-zA-Z_]+$/', $usuario)) {
-            die("Error: El nombre de usuario no es válido.");
+            die('<div class="alert alert-primary" role="alert">
+            Error: El nombre de usuario no es válido.
+          </div>');
+        }
+        
+        if (strlen($contrasenia) > 255) {
+            die('<div class="alert alert-primary" role="alert">
+                Error: La contraseña no puede tener más de 255 caracteres.
+            </div>');
         }
 
         $edad = date_diff(date_create($fechaNacimiento), date_create('today'))->y;
         if ($edad < 12 || $edad > 120) {
-            die("Error: Debes tener entre 12 y 120 años para registrarte.");
+            die('<div class="alert alert-primary" role="alert">
+            Error: Debes tener entre 12 y 120 años para registrarte.
+          </div>');
         }
 
-        // Insert user data into the 'usuarios' table
+
+        
         $sql = "INSERT INTO usuarios (usuario, contrasena, fechaNacimiento) VALUES ('$usuario', '$contrasenia', '$fechaNacimiento')";
         $conn->query($sql);
 
-        // Retrieve the automatically generated ID for the last inserted row
         $idUsuario = $conn->insert_id;
 
-        // Insert a record into the 'cestas' table using the obtained $idUsuario
+        
         $sqlCesta = "INSERT INTO cestas (idCesta, usuario, precioTotal) VALUES ('$idUsuario', '$usuario', 0)";
         $conn->query($sqlCesta);
 
-        header('location: login.php');
 
+        header('location: login.php');
     }
     ?>
 
@@ -61,6 +72,7 @@
                 <label class="form-label">Fecha de nacimiento</label>
                 <input class="form-control" type="date" name="nacimiento">
             </div>
+            <br>
             <div class="remember-forgot">
                 <p>Si tienes cuenta inicia sesión <a href="login.php">aquí</a></p>
             </div>

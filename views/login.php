@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width
     initial-scale=1.0">
     <link rel="stylesheet" href="../util/login.css">
-
+    <?php require './bootsrap.php' ?>
     <title>Login</title>
 
 </head>
@@ -53,7 +53,9 @@
                 $_SESSION["usuario"] = $usuario;
                 header('location: listado_productos.php');
             } else {
-                echo "El usuario/contraseña son incorrectos";
+                echo '<div class="alert alert-primary" role="alert">
+            Error Usuario/contraseña incorrectos!
+          </div>';
             }
         }
 
@@ -74,17 +76,7 @@
                     echo "Error al crear la cesta: " . $conexion->error;
                 }
             }
-
-        } else {
-            $error = "El usuario/contraseña son incorrectos";
         }
-
-
-
-
-
-
-
     }
 
     ?>
@@ -99,31 +91,31 @@
 
                 <?php if (isset($err_usuario))
                     echo $err_usuario ?>
-                    <br><br>
-                </div>
-                <div class="input-box">
-                    <label class="label_nombre">Contraseña:</label>
-                    <input class="form-control" type="password" name="contrasenia">
+                <br><br>
+            </div>
+            <div class="input-box">
+                <label class="label_nombre">Contraseña:</label>
+                <input class="form-control" type="password" name="contrasenia">
 
-                </div>
-                <div class="remember-forgot">
-                    <p>Si no tienes cuenta registrate <a href="registro.php">aquí</a></p>
+            </div>
+            <div class="remember-forgot">
+                <p>Si no tienes cuenta registrate <a href="registro.php">aquí</a></p>
 
-                    <br>
-                </div>
+                <br>
+            </div>
 
             <?php if (isset($err_fecha))
-                    echo $err_fecha ?>
-                <input class="btn btn-primary mb-3 boton" type="submit" value="Login">
+                echo $err_fecha ?>
+            <input class="btn btn-primary mb-3 boton" type="submit" value="Login">
 
 
 
-        </div>
+    </div>
 
-        </form>
+    </form>
 
 
 
-    </body>
+</body>
 
-    </html>
+</html>

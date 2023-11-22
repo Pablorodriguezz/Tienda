@@ -75,7 +75,7 @@
             <label class="form-label" for="">Cantidad</label>
             <input class="form-control" type="number" name="cantidad"><br><br>
             <label class="form-label">Imagen</label>
-            <input class="form-control" type="file" name="imagen"><br><br>
+            <input class="form-control" type="file" name="imagen" accept=".jpg, .jpeg, .png" maxlength="5000000"><br><br>
             <input class="btn btn-primary mb-3" type="submit" value="Enviar">
         </form>
         <a href="listado_productos.php">
